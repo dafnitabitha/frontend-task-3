@@ -1,29 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Hello App</title>
-</head>
-<body>
-  <h2>Enter Your Name</h2>
-  <input type="text" id="nameInput" placeholder="Your name">
-  <button onclick="greet()">Greet Me</button>
-  <p id="result"></p>
+<script>
+  async function greet() {
+    const name = document.getElementById("nameInput").value;
+    const url = `https://backend-task-3-1.onrender.com/hello?name=${encodeURIComponent(name)}`;
 
-  <script>
-    async function greet() {
-      const name = document.getElementById("nameInput").value;
-      const backendURL = "https://backend-task-3.onrender.com/hello?name=Dafni";
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Response not OK");
 
-      try {
-        const response = await fetch(backendURL);
-        const data = await response.json();
-
-        document.getElementById("result").innerText = data.message;
-      } catch (error) {
-        document.getElementById("result").innerText = "❌ Something went wrong.";
-        console.error("Error:", error);
-      }
+      const data = await response.json();
+      document.getElementById("result").innerText = data.message;
+    } catch (error) {
+      console.error("Error:", error);
+      document.getElementById("result").innerText = "Something went wrong 😢";
     }
-  </script>
-</body>
-</html>
+  }
+</script>
