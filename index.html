@@ -1,17 +1,28 @@
-<script>
-  async function greet() {
-    const name = document.getElementById("nameInput").value;
-    const url = `https://backend-task-3-1.onrender.com/hello?name=${encodeURIComponent(name)}`;
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Greet App</title>
+</head>
+<body>
+  <h2>Hello App</h2>
+  <input type="text" id="nameInput" placeholder="Enter your name">
+  <button onclick="greet()">Greet Me</button>
+  <p id="result"></p>
 
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Response not OK");
+  <script>
+    async function greet() {
+      const name = document.getElementById("nameInput").value;
+      const url = `https://backend-task-3-1.onrender.com/hello?name=${encodeURIComponent(name)}`;
 
-      const data = await response.json();
-      document.getElementById("result").innerText = data.message;
-    } catch (error) {
-      console.error("Error:", error);
-      document.getElementById("result").innerText = "Something went wrong 😢";
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        document.getElementById("result").innerText = data.message;
+      } catch (error) {
+        document.getElementById("result").innerText = "Something went wrong 😢";
+        console.error(error);
+      }
     }
-  }
-</script>
+  </script>
+</body>
+</html>
